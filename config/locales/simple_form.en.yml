@@ -1,19 +1,29 @@
 en:
   simple_form:
-    "yes": 'Yes'
-    "no": 'No'
+    "login":        'Login to Administrative Module'
+    "yes":          'Yes'
+    "no":           'No'
     required:
-      text: 'required'
-      mark: '*'
+      text:         'required'
+      mark:         '*'
       # You can uncomment the line below if you need to overwrite the whole required html.
       # When using html, text and mark won't be used.
       # html: '<abbr title="required">*</abbr>'
     error_notification:
-      default_message: "Please review the problems below:"
+      default_message:  "Please review the problems below:"
     # Examples
-    # labels:
-    #   defaults:
-    #     password: 'Password'
+    labels:
+      defaults:
+        password:       Password
+        email:          Email
+    submit:
+      login:            Sign in
+      logout:           Sign out
+
+    alert:
+      access_denied:        Access denied for this user
+      incorrect_password:   Incorrect password
+      incorrect_email:      Incorrect email or no such user
     #   user:
     #     new:
     #       email: 'E-mail to sign in.'
@@ -29,3 +39,4 @@ en:
     # prompts:
     #   defaults:
     #     age: 'Select your age'
+

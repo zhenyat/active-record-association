@@ -1,0 +1,16 @@
+.container
+  .row
+    .col-ms-6
+      = simple_form_for([:admin, @sample], html: {multipart: true}) do |f|
+        = f.error_notification message: t('messages.error_notification')
+
+        .form-inputs
+          = f.input :name
+          = f.input :title
+          = f.input :price
+          = f.input :quantity
+          = f.input :status, default: 0
+
+          = render 'admin/shared/form_rich_text_content.html', f: f, object: @sample
+          = render 'admin/shared/form_images.html', f: f, object: @sample
+          = render 'admin/shared/form_actions.html', f: f, object: @sample

@@ -1,0 +1,15 @@
+.container
+  .row
+    .col-ms-6
+      = simple_form_for([:admin, @appointment], html: {multipart: true}) do |f|
+        = f.error_notification message: t('messages.error_notification')
+
+        .form-inputs
+          = render 'admin/shared/form_ancestry', f: f, object: @appointment
+          = f.input :doctor
+          = f.input :patient
+          = f.input :appointment_date
+
+          = render 'admin/shared/form_rich_text_content', f: f, object: @appointment
+          = render 'admin/shared/form_images', f: f, object: @appointment
+          = render 'admin/shared/form_actions', f: f, object: @appointment

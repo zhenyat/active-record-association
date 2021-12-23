@@ -1,0 +1,38 @@
+.container
+  %h1= t Patient.model_name.human
+  %table.table.table-striped
+    %tbody
+      - @patient.attributes.each do |key, value|
+        - unless key == 'id' || key.include?('digest') || key == 'created_at' || key == 'updated_at'
+          %tr
+            - if key == 'status'
+              %td= t 'status.status'
+              %td= status_mark @patient.status
+            - elsif key == 'ancestry'
+              - if @patient.parent.present?
+                %td= t 'tree.parent'
+                - if Patient.column_names.include? 'title'
+                  %td= "#{@patient.parent.title} (id: #{@patient.ancestry})"
+                - elsif Patient.column_names.include? 'name'
+                  %td= "#{@patient.parent.name} (id: #{@patient.ancestry})"
+                - else
+                  %td= "#{@patient.ancestry})"
+              - if @patient.children.present?
+                %tr
+                  %td= t 'tree.children'
+                  %td
+                    - @patient.children.each do |child|
+                      - if Patient.column_names.include? 'title'
+                        = "#{child.title} (id=#{child.id})"
+                      - elsif Patient.column_names.include? 'name'
+                        = "#{child.name} (id=#{child.id})"
+                      - else
+                        = "#{child.id}"
+                      - unless child == @patient.children.last
+                        %br
+            - else
+              %td= t "activerecord.attributes.patient.#{key}"
+              %td= value
+      = render 'admin/shared/show_images', object: @patient
+  = render 'admin/shared/show_rich_text_content', object: @patient
+  = render 'admin/shared/show_actions', object: @patient

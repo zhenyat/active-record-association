@@ -1,0 +1,38 @@
+.container
+  %h1= t Appointment.model_name.human
+  %table.table.table-striped
+    %tbody
+      - @appointment.attributes.each do |key, value|
+        - unless key == 'id' || key.include?('digest') || key == 'created_at' || key == 'updated_at'
+          %tr
+            - if key == 'status'
+              %td= t 'status.status'
+              %td= status_mark @appointment.status
+            - elsif key == 'ancestry'
+              - if @appointment.parent.present?
+                %td= t 'tree.parent'
+                - if Appointment.column_names.include? 'title'
+                  %td= "#{@appointment.parent.title} (id: #{@appointment.ancestry})"
+                - elsif Appointment.column_names.include? 'name'
+                  %td= "#{@appointment.parent.name} (id: #{@appointment.ancestry})"
+                - else
+                  %td= "#{@appointment.ancestry})"
+              - if @appointment.children.present?
+                %tr
+                  %td= t 'tree.children'
+                  %td
+                    - @appointment.children.each do |child|
+                      - if Appointment.column_names.include? 'title'
+                        = "#{child.title} (id=#{child.id})"
+                      - elsif Appointment.column_names.include? 'name'
+                        = "#{child.name} (id=#{child.id})"
+                      - else
+                        = "#{child.id}"
+                      - unless child == @appointment.children.last
+                        %br
+            - else
+              %td= t "activerecord.attributes.appointment.#{key}"
+              %td= value
+      = render 'admin/shared/show_images', object: @appointment
+  = render 'admin/shared/show_rich_text_content', object: @appointment
+  = render 'admin/shared/show_actions', object: @appointment
