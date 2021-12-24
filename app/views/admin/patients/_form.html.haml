@@ -10,4 +10,17 @@
 
           = render 'admin/shared/form_rich_text_content', f: f, object: @patient
           = render 'admin/shared/form_images', f: f, object: @patient
+          %br
+          %h5= 'Create Appointment (if needed)'
+          = f.fields_for :appointments do |appointment_form|
+            = appointment_form.input :appointment_date, include_blank: true
+            
+            - if 'DDDL' == 'DDDL'   #  'doctor' is selected from DDDL
+              = appointment_form.label :doctor, "Doctor"
+              = appointment_form.collection_select :doctor_id, Doctor.order(:name), :id, :name, {}, {class: "form-control"}
+            - else  # new 'doctor' is created with 'appointment' (just for demo)
+              %h5= 'Create new Doctor'
+              = appointment_form.fields_for :doctor do |doctor_form|
+                = doctor_form.input :name#, include_blank: false
+
           = render 'admin/shared/form_actions', f: f, object: @patient
