@@ -1,0 +1,17 @@
+.container
+  .row
+    .col-ms-6
+      = simple_form_for([:admin, @post], html: {multipart: true}) do |f|
+        = f.error_notification message: t('messages.error_notification')
+
+        .form-inputs
+          = render 'admin/shared/form_ancestry', f: f, object: @post
+          = f.input :content
+          - if 'DDDL' == 'DDDL'
+            = f.collection_select :author_ids, Author.order(:name), :id, :name, {}, {class: "form-control"}
+          - else
+            = f.association :authors
+
+          = render 'admin/shared/form_rich_text_content', f: f, object: @post
+          = render 'admin/shared/form_images', f: f, object: @post
+          = render 'admin/shared/form_actions', f: f, object: @post

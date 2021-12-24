@@ -1,0 +1,13 @@
+.container
+  .row
+    .col-ms-6
+      = simple_form_for([:admin, @author], html: {multipart: true}) do |f|
+        = f.error_notification message: t('messages.error_notification')
+
+        .form-inputs
+          = render 'admin/shared/form_ancestry', f: f, object: @author
+          = f.input :name
+
+          = render 'admin/shared/form_rich_text_content', f: f, object: @author
+          = render 'admin/shared/form_images', f: f, object: @author
+          = render 'admin/shared/form_actions', f: f, object: @author

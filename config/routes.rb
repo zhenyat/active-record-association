@@ -25,6 +25,8 @@ Rails.application.routes.draw do
         resources :doctors
         resources :patients
         resources :appointments
+        resources :authors
+        resources :posts
       # Add new admin resources before this line
     end
 

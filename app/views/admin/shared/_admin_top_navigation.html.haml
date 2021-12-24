@@ -31,12 +31,20 @@
             %span.fas.fa-database.fa-2x{"aria-hidden" => "true", "style" =>  "color:navy"}
             = t(:data)
           .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+            = "has_many through"
             .dropdown-item
               = link_to t(Doctor.model_name.human(count: 2)),  admin_doctors_path
             .dropdown-item
               = link_to t(Patient.model_name.human(count: 2)),  admin_patients_path
             .dropdown-item
               = link_to t(Appointment.model_name.human(count: 2)),  admin_appointments_path
+            .dropdown-divider
+            = "has_and_belongs_to_many"
+            .dropdown-item
+              = link_to t(Author.model_name.human(count: 2)),  admin_authors_path
+            .dropdown-item
+              = link_to t(Post.model_name.human(count: 2)),  admin_posts_path
+            .dropdown-divider
             .dropdown-item
               = link_to t(Sample.model_name.human(count: 2)), admin_samples_path
             .dropdown-divider
