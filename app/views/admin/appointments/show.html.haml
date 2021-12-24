@@ -8,31 +8,14 @@
             - if key == 'status'
               %td= t 'status.status'
               %td= status_mark @appointment.status
-            - elsif key == 'ancestry'
-              - if @appointment.parent.present?
-                %td= t 'tree.parent'
-                - if Appointment.column_names.include? 'title'
-                  %td= "#{@appointment.parent.title} (id: #{@appointment.ancestry})"
-                - elsif Appointment.column_names.include? 'name'
-                  %td= "#{@appointment.parent.name} (id: #{@appointment.ancestry})"
-                - else
-                  %td= "#{@appointment.ancestry})"
-              - if @appointment.children.present?
-                %tr
-                  %td= t 'tree.children'
-                  %td
-                    - @appointment.children.each do |child|
-                      - if Appointment.column_names.include? 'title'
-                        = "#{child.title} (id=#{child.id})"
-                      - elsif Appointment.column_names.include? 'name'
-                        = "#{child.name} (id=#{child.id})"
-                      - else
-                        = "#{child.id}"
-                      - unless child == @appointment.children.last
-                        %br
             - else
               %td= t "activerecord.attributes.appointment.#{key}"
-              %td= value
+              - if key == 'doctor_id'
+                %td= Doctor.find(value).name
+              - elsif key == 'patient_id'
+                %td= Patient.find(value).name
+              - else
+                %td= value
       = render 'admin/shared/show_images', object: @appointment
   = render 'admin/shared/show_rich_text_content', object: @appointment
   = render 'admin/shared/show_actions', object: @appointment

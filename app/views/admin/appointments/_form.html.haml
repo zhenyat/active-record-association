@@ -6,9 +6,13 @@
 
         .form-inputs
           = render 'admin/shared/form_ancestry', f: f, object: @appointment
-          = f.input :doctor
-          = f.input :patient
-          = f.input :appointment_date
+          /= f.input :doctor.name
+          = f.collection_select :doctor_id, Doctor.order(:name), :id, :name, {}, {class: "form-control"}
+
+          /= f.input :patient.name
+          = f.collection_select :patient_id, Patient.order(:name), :id, :name, {}, {class: "form-control"}
+
+          = f.input :appointment_date, include_blank: true
 
           = render 'admin/shared/form_rich_text_content', f: f, object: @appointment
           = render 'admin/shared/form_images', f: f, object: @appointment
